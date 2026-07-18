@@ -1,0 +1,16 @@
+{
+  "name": "smart_contract",
+  "version": "1.0.0",
+  "license": "ISC",
+  "scripts": {
+    "test": "npx hardhat test"
+  },
+  "devDependencies": {
+    "hardhat": "2.22.19",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "ethereum-waffle": "^4.0.10",
+    "ethers": "^5.8.0",
+    "chai": "^4.3.10"
+  }
+}
