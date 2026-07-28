@@ -11,13 +11,7 @@ const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
 
-  const transactionContract = new ethers.Contract(
-    contractAddress,
-    contractABI,
-    signer
-  );
-
-  return transactionContract;
+  return new ethers.Contract(contractAddress, contractABI, signer);
 };
 
 export const TransactionProvider = ({ children }) => {
@@ -54,7 +48,7 @@ export const TransactionProvider = ({ children }) => {
         console.log("No accounts found");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -68,7 +62,7 @@ export const TransactionProvider = ({ children }) => {
 
       setCurrentAccount(accounts[0]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new Error("No Ethereum object");
     }
   };
@@ -96,14 +90,13 @@ export const TransactionProvider = ({ children }) => {
         ],
       });
 
-      // Save transaction to blockchain
-      const transactionHash =
-        await transactionContract.addToBlockchain(
-          addressTo,
-          parsedAmount,
-          message,
-          keyword
-        );
+      // Save transaction to the blockchain
+      const transactionHash = await transactionContract.addToBlockchain(
+        addressTo,
+        parsedAmount,
+        message,
+        keyword
+      );
 
       setIsLoading(true);
 
@@ -116,7 +109,7 @@ export const TransactionProvider = ({ children }) => {
       console.log(`Success - ${transactionHash.hash}`);
 
       const transactionsCount =
-        await transactionContract .getTransactionCount();
+        await transactionContract.getTransactionCount();
 
       setTransactionCount(transactionsCount.toNumber());
 
